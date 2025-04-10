@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-      void ft_error(void)
+void ft_error(void)
 {
     write(2, "Error\n", 6);
 }
@@ -69,7 +69,7 @@ int parse_args(t_stack *stack, int argc, char **argv)
     i = 1;
     while (i < argc)
     {
-        if (!ft_isdigit_str(argv[i])) 
+        if (!ft_isdigit_str(argv[i]))
             return (0);
         value = ft_atoi(argv[i]);
         if (value < INT_MIN || value > INT_MAX)
@@ -82,17 +82,33 @@ int parse_args(t_stack *stack, int argc, char **argv)
     return (1);
 }
 
+void ft_print_stack(t_stack *stack, char stack_name)
+{
+    ft_printf("%c: ", stack_name);
+    t_list *current = stack->top;
+    while (current)
+    {
+        ft_printf("%d ", *(int *)current->content);
+        current = current->next;
+    }
+    ft_printf("\n");
+}
+
 int main(int argc, char **argv)
 {
-    t_stack *stack;
+    t_stack *stack_a;
+    t_stack *stack_b;
     int     i;
     int     value;
 
-    stack = malloc(sizeof(t_stack));
-    if (!stack)
+    stack_a = malloc(sizeof(t_stack));
+    stack_b = malloc(sizeof(t_stack));
+    if (!stack_a || !stack_b)
         return (1);
-    stack->top = NULL;
-    stack->size = 0;
+    stack_a->top = NULL;
+    stack_a->size = 0;
+    stack_b->top = NULL;
+    stack_b->size = 0;
 
     if (argc < 2)
         return (0);
@@ -106,12 +122,15 @@ int main(int argc, char **argv)
         {
             if (!ft_isdigit_str(split_args[j]))
             {
-                ft_lstclear(&stack->top, free);
+                ft_lstclear(&stack_a->top, free);
+                ft_lstclear(&stack_b->top, free);
                 ft_error();
+                free(stack_a);
+                free(stack_b);
                 return (1);
             }
             value = ft_atoi(split_args[j]);
-            ft_lstadd_back_int(stack, value);
+            ft_lstadd_back_int(stack_a, value);
             free(split_args[j]);
             j++;
         }
@@ -119,12 +138,68 @@ int main(int argc, char **argv)
         i++;
     }
 
-    if (stack->top && ft_check_duplicates(stack))
+    if (stack_a->top && ft_check_duplicates(stack_a))
     {
-        ft_lstclear(&stack->top, free);
+        ft_lstclear(&stack_a->top, free);
+        ft_lstclear(&stack_b->top, free);
         ft_error();
-        free(stack);
+        free(stack_a);
+        free(stack_b);
         return (1);
     }
-   }
 
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    // Aquí puedes probar las operaciones:
+    sa(stack_a);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    pb(stack_a, stack_b);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    sb(stack_b);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    pa(stack_a, stack_b); // Intenta pa cuando b no está vacío
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    ra(stack_a);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    rb(stack_b);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    rra(stack_a);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    rrb(stack_b);
+    ft_print_stack(stack_a, 'a');
+    ft_print_stack(stack_b, 'b');
+
+    // Probar ss y rr/rrr (si tus funciones están implementadas)
+    // ss(stack_a, stack_b);
+    // ft_print_stack(stack_a, 'a');
+    // ft_print_stack(stack_b, 'b');
+
+    // rr(stack_a, stack_b);
+    // ft_print_stack(stack_a, 'a');
+    // ft_print_stack(stack_b, 'b');
+
+    // rrr(stack_a, stack_b);
+    // ft_print_stack(stack_a, 'a');
+    // ft_print_stack(stack_b, 'b');
+
+    ft_lstclear(&stack_a->top, free);
+    ft_lstclear(&stack_b->top, free);
+    free(stack_a);
+    free(stack_b);
+    return (0);
+}

@@ -6,7 +6,7 @@
 /* By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
 /* +#+#+#+#+#+   +#+           */
 /* Created: 2025/04/10 12:58:15 by yael-you          #+#    #+#             */
-/* Updated: 2025/04/10 13:45:00 by yael-you         ###   ########.fr       */
+/* Updated: 2025/04/10 16:30:00 by yael-you         ###   ########.fr       */
 /* */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void ra (t_stack *a)
     a->top = first->next;
     last->next = first;
     first->next = NULL;
+    ft_printf("ra\n");
 }
 
 void rb (t_stack *b)
@@ -45,12 +46,14 @@ void rb (t_stack *b)
     b->top = first->next;
     last->next = first;
     first->next = NULL;
+    ft_printf("rb\n");
 }
 
 void rr (t_stack *a, t_stack *b)
 {
     ra(a);
     rb(b);
+    ft_printf("rr\n");
 }
 
 void rra (t_stack *a)
@@ -76,6 +79,7 @@ void rra (t_stack *a)
         before_last->next = NULL;
     else
         first->next = NULL; // Si solo hay dos elementos
+    ft_printf("rra\n");
 }
 
 void rrb (t_stack *b)
@@ -101,10 +105,12 @@ void rrb (t_stack *b)
         before_last->next = NULL;
     else
         first->next = NULL; // Si solo hay dos elementos
+    ft_printf("rrb\n");
 }
 
 void rrr (t_stack *a, t_stack *b)
 {
     rra(a);
     rrb(b);
+    ft_printf("rrr\n");
 }

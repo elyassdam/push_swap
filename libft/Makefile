@@ -13,8 +13,11 @@ SRC = ft_atoi.c ft_itoa.c ft_putnbr_fd.c ft_strlcpy.c ft_toupper.c \
 	ft_isdigit.c ft_putchar_fd.c ft_strjoin.c ft_substr.c \
 	ft_isprint.c ft_putendl_fd.c ft_strlcat.c ft_tolower.c \
 	ft_printf.c ft_putchar.c ft_putnbr.c ft_putnbru.c ft_putstr.c \
-	ft_putnbr_base.c  ft_ptr.c ft_converter.c
-
+	ft_putnbr_base.c  ft_ptr.c ft_converter.c \
+	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
+	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
 # Objetos principales y bonus
 OBJ = $(SRC:.c=.o)

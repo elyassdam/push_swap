@@ -6,28 +6,48 @@
 /* By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
 /* +#+#+#+#+#+   +#+           */
 /* Created: 2025/04/10 12:54:23 by yael-you          #+#    #+#             */
-/* Updated: 2025/04/10 13:40:00 by yael-you         ###   ########.fr       */
+/* Updated: 2025/04/10 16:31:00 by yael-you         ###   ########.fr       */
 /* */
 /* ************************************************************************** */
 
 #include "../includes/ft_push_swap.h"
 
-void    swap(t_stack *swaped_stack)
+void    sa(t_stack *a)
 {
     t_list  *i;
     t_list  *j;
     void    *temp_content;
 
-    if (!swaped_stack || !swaped_stack->top || !swaped_stack->top->next)
+    if (!a || !a->top || !a->top->next)
         return ;
-    swaped_stack->size = ft_lstsize(swaped_stack->top);
-    if (swaped_stack->size <= 1)
+    a->size = ft_lstsize(a->top);
+    if (a->size <= 1)
         return ;
-    i = swaped_stack->top;
+    i = a->top;
     j = i->next;
     temp_content = i->content;
     i->content = j->content;
     j->content = temp_content;
+    ft_printf("sa\n");
+}
+
+void    sb(t_stack *b)
+{
+    t_list  *i;
+    t_list  *j;
+    void    *temp_content;
+
+    if (!b || !b->top || !b->top->next)
+        return ;
+    b->size = ft_lstsize(b->top);
+    if (b->size <= 1)
+        return ;
+    i = b->top;
+    j = i->next;
+    temp_content = i->content;
+    i->content = j->content;
+    j->content = temp_content;
+    ft_printf("sb\n");
 }
 
 void    ss(t_stack *a, t_stack *b)
@@ -38,8 +58,9 @@ void    ss(t_stack *a, t_stack *b)
     b->size = ft_lstsize(b->top);
     if (a->size <= 1 || b->size <= 1)
         return ;
-    swap(a);
-    swap(b);
+    sa(a);
+    sb(b);
+    ft_printf("ss\n");
 }
 
 void    pa(t_stack *a, t_stack *b)
@@ -56,6 +77,7 @@ void    pa(t_stack *a, t_stack *b)
 
     a->size = ft_lstsize(a->top);
     b->size = ft_lstsize(b->top);
+    ft_printf("pa\n");
 }
 
 void    pb(t_stack *a, t_stack *b)
@@ -72,5 +94,5 @@ void    pb(t_stack *a, t_stack *b)
 
     a->size = ft_lstsize(a->top);
     b->size = ft_lstsize(b->top);
+    ft_printf("pb\n");
 }
-
