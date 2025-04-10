@@ -1,31 +1,32 @@
 # =========================
-#       MAKEFILE
+#       MAKEFILE (Raíz del proyecto)
 # =========================
 
 NAME = ft_push_swap
 
 # ===== COMPILER & FLAGS =====
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I. -I./libft
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 # ===== SOURCE FILES =====
-SRC = moves/rules.c \
-	  moves/rules_2.c \
-	  moves/ft_lstadd_back_swap.c \
-	  ft_push_swap.c
+SRC =   src/moves/rules.c \
+		src/moves/rules_2.c \
+		src/ft_push_swap.c
 
 OBJ = $(SRC:.c=.o)
 
 # ===== LIBFT CONFIG =====
 LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_NAME = libft.a
+LIBFT = $(LIBFT_DIR)/$(LIBFT_NAME)
 
 # ===== RULES =====
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(LIBFT):
 	@make -C $(LIBFT_DIR)
+
+$(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c
@@ -37,7 +38,7 @@ clean:
 
 fclean: clean
 	@make fclean -C $(LIBFT_DIR)
-	rm -f $(NAME)
+	rm -f $(NAME) $(LIBFT)
 
 re: fclean all
 

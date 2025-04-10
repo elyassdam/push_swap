@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-you <yael-you@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:15:23 by yael-you          #+#    #+#             */
-/*   Updated: 2025/01/30 13:25:14 by yael-you         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:51:31 by yael-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
+# include <stdint.h>
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -69,5 +71,16 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
+// Función principal
+int		ft_printf(const char *format, ...);
+
+// Funciones auxiliares
+void	ft_putchar(char c, int *count);
+void	ft_putstr(char *str, int *count);
+void	ft_putnbr(int n, int *count);
+void	ft_putnbru(unsigned int n, int *count);
+void	ft_putnbr_base(unsigned long n, char *base, int *count);
+void	ft_ptr(va_list args, int *count);
+int		ft_converter(char format, va_list args, int *count);
 
 #endif
