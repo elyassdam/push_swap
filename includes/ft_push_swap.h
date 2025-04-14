@@ -37,5 +37,6 @@ int ft_check_duplicates(t_stack *stack);
 void ft_error(void); // Si tienes una función ft_error
 void ft_lstadd_back_int(t_stack *stack, int value); // Si la usas aquí
 void ft_print_stack(t_stack *stack, char stack_name); // Si la usas aquí
-
+void sort_three(t_stack *a);
+void sort_five(t_stack *a);
 #endif

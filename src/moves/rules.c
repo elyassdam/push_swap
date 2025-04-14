@@ -65,15 +65,15 @@ void    ss(t_stack *a, t_stack *b)
 
 void    pa(t_stack *a, t_stack *b)
 {
-    t_list  *node_to_move;
+    t_list  *i;
 
     if (!b || !b->top)
         return ;
 
-    node_to_move = b->top;
+    i = b->top;
     b->top = b->top->next;
-    node_to_move->next = a->top;
-    a->top = node_to_move;
+    i->next = a->top;
+    a->top = i;
 
     a->size = ft_lstsize(a->top);
     b->size = ft_lstsize(b->top);
@@ -82,15 +82,15 @@ void    pa(t_stack *a, t_stack *b)
 
 void    pb(t_stack *a, t_stack *b)
 {
-    t_list  *node_to_move;
+    t_list  *i;
 
     if (!a || !a->top)
         return ;
 
-    node_to_move = a->top;
+    i = a->top;
     a->top = a->top->next;
-    node_to_move->next = b->top;
-    b->top = node_to_move;
+    i->next = b->top;
+    b->top = i;
 
     a->size = ft_lstsize(a->top);
     b->size = ft_lstsize(b->top);

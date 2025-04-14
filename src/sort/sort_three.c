@@ -28,3 +28,24 @@ void sort_three(t_stack *a)
     else if (first < second && second > last && first < first)
         rra (a);    
 }
+void sort_five(t_stack *a, t_stack *b)
+{
+    int max;
+    t_list *i;
+
+    i = a->top;
+    max = i->content;
+    while (i->next != NULL)
+    {    i = i->next;
+        if (max < i->content)
+            max = i->content;
+        i = i->next;
+    }
+    if (a->top->content = max)
+    while (a->top->content == max)
+     if (a->top->content = max)
+        rra(a);
+    
+    pb (a,b);
+    
+}
