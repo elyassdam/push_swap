@@ -2,20 +2,29 @@
 
 void sort_three(t_stack *a)
 {
-     t_list *first;
-    t_list *last;
+    int first;
+    int second;
+    int last;
 
     if (!a || !a->top || !a->top->next)
         return;
-    a->size = ft_lstsize(a->top);
-    first = a->top;
-    last = a->top;
-    while (last->next != NULL)
-        last = last->next;
-    if (first->next > first->next->next && last < first->next)
-        rra(a);
-    if (first->next < first->next->next)
-        sa(a);
-    if ()
+    first = a->top->content;
+    second = a->top->next->content;
+    last = a->top->next->next->content;
     
+    if (first > second && second < last && first < last)
+        sa(a);
+    else if (first > second && second < last)
+    {    sa(a);
+        rra(a);
+    }
+    else if(first < second && second > last && first < last)
+    {
+        sa(a);
+        ra(a);
+    }
+    else if (first > second && second < last &&  first < last)
+       ra(a);
+    else if (first < second && second > last && first < first)
+        rra (a);    
 }
