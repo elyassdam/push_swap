@@ -11,7 +11,9 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes
 # ===== SOURCE FILES =====
 SRC =   src/moves/rules.c \
 		src/moves/rules_2.c \
-		src/ft_push_swap.c
+		src/ft_push_swap.c \
+		src/sort/sort_fice.c \
+		src/sort/sort_three.c
 
 OBJ = $(SRC:.c=.o)
 
