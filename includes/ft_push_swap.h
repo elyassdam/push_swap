@@ -17,7 +17,7 @@ typedef struct s_stack
 {
     t_list *top;
     int size;
-    char stack_id; // Si usas stack_id
+    char stack_id; 
 } t_stack;
 
 // Function prototypes
