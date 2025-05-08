@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_five.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-you <yael-you@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:30:38 by yael-you          #+#    #+#             */
-/*   Updated: 2025/05/07 17:45:04 by yael-you         ###   ########.fr       */
+/*   Updated: 2025/05/08 02:44:42 by yael-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,63 @@ void push_two(t_stack *a, t_stack *b)
     pb(a,b);
     pb(a,b);
 }
-void cost(t_stack *a, t_stack *b, int value)
+int cost(t_stack *a, t_stack *b, int value)
 {     if (!a || !a->top || !b || !b->top)
         return __INT_MAX__; 
-    if ()
-        
-
-
-
-
-
-
+    int moves_a;
+    int couple;
+    int moves_b;
+    int cost;
+    moves_a = get_moves_to_top(a, value);
+    couple = find_couple(b , value);
+    moves_b = get_moves_to_top(b, couple);
     
+if ((moves_a >= 0 && moves_b >= 0) || (moves_a < 0 && moves_b < 0))
+{
+    if (moves_a > moves_b)
+        cost = moves_a;
+    else
+        cost = moves_b;
 }
-void find_couple(t_stack *b, int value_a)
+else
+{
+    if (moves_a < 0)
+        moves_a = -moves_a;
+    if (moves_b < 0)
+        moves_b = -moves_b;   
+    cost = moves_a + moves_b;
+}
+return cost;
+}
+int cheapest(t_stack *a, t_stack *b)
+{
+    if (!a || !a->top)
+        return 0;
+    t_list *i;
+    int cheap;
+    int cheapest_cost;
+    int cheapest_value;
+    int value;
+    int current_cost;
+
+    i = a->top;
+    cheapest_value = *(int *)i->content;
+    cheapest_cost = cost(a,b,cheapest_value);
+    
+    while (i != NULL)
+    {
+        value = *(int *) i->content;
+        current_cost = cost(a,b,value);
+        if (current_cost < cheapest_cost)
+        {
+            cheapest_cost = current_cost;
+            cheapest_value = value;        
+        }
+    i = i->next;    
+}
+return cheapest_value;
+}
+int find_couple(t_stack *b, int value_a)
 {
     t_list *i;
     int maxb;
