@@ -148,13 +148,14 @@ int main(int argc, char **argv)
         return (1);
     }
 
-    ft_print_stack(stack_a, 'a');
-    ft_print_stack(stack_b, 'b');
+    //ft_print_stack(stack_a, 'a');
+    //ft_print_stack(stack_b, 'b');
  if (stack_a->size == 5)
         sort_five(stack_a, stack_b);
     else if (stack_a->size == 3)
         sort_three(stack_a);
-
+    else
+        sort(stack_a, stack_b); 
  /*    // Aquí puedes probar las operaciones:
     sa(stack_a);
     ft_print_stack(stack_a, 'a');

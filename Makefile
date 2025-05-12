@@ -13,7 +13,9 @@ SRC =   src/moves/rules.c \
 		src/moves/rules_2.c \
 		src/ft_push_swap.c \
 		src/sort/sort_three.c \
-		src/sort/sort_five.c 
+		src/sort/sort_five.c \
+		src/sort/sort.c \
+		src/sort/utils_sort.c
 
 OBJ = $(SRC:.c=.o)
 

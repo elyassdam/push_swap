@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   sort_five.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-you <yael-you@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:30:38 by yael-you          #+#    #+#             */
-/*   Updated: 2025/05/11 08:00:40 by yael-you         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:17:40 by yael-you         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/ft_push_swap.h"
 
@@ -60,28 +60,34 @@ int get_pos(t_stack *a, int value)
 }
 void sort_five(t_stack *a, t_stack *b)
 {
-    int count;
+    int min;
     int pos;
-    int max;
+    int count = 0;
 
-    count = 0;
     while (count < 2)
     {
-        max = get_max(a);
-        pos = (get_pos(a, max));
-        if (pos <= (ft_lstsize(a->top)/2))
-            while (*(int *)a->top->content != max)
+        min = get_min(a);
+        pos = get_pos(a, min);
+        if (pos <= (a->size / 2))
+        {
+            while (*(int *)a->top->content != min)
                 ra(a);
+        }
         else
-        while (*(int *)a->top->content != max)
-            rra(a);
-        pb (a,b);
-        count ++;
+        {
+            while (*(int *)a->top->content != min)
+                rra(a);
+        }
+        pb(a, b);
+        count++;
     }
-    sort_three(a);
-    sb(b);
-    pa(a,b);
-    ra(a);
-    pa(a,b);
-    ra(a);
+
+    sort_three(a); // ahora a tiene los 3 mayores
+
+    if (*(int *)b->top->content < *(int *)b->top->next->content)
+        sb(b); // asegurar que el menor sube primero
+
+    pa(a, b);
+    pa(a, b);
 }
+
