@@ -5,6 +5,7 @@
 # include "../libft/libft.h" // Para ft_atoi, ft_split, etc.
 # include <stdlib.h>
 # include <unistd.h>
+#include <limits.h>
 
 // Structures
 typedef struct s_node
@@ -37,7 +38,7 @@ int		ft_check_duplicates(t_stack *stack);
 void	ft_error(void);                                 
 		// Si tienes una función ft_error
 void	ft_lstadd_back_int(t_stack *stack, int value);   // Si la usas aquí
-void	ft_print_stack(t_stack *stack, char stack_name); // Si la usas aquí
+void	ft_print_stack(t_stack *stack); // Si la usas aquí
 void	sort_three(t_stack *a);
 void sort_five(t_stack *a, t_stack *b);
 void	sort(t_stack *a, t_stack *b);
@@ -51,5 +52,9 @@ void	push_two(t_stack *a, t_stack *b);
 int		find_couple(t_stack *b, int value_a);
 int		get_moves_to_top(t_stack *stack, int value);
 int		do_move_top(t_stack *a, t_stack *b);
+int		is_sorted(t_stack *a);
+void print_stack(const char *name, t_stack *stack);
+void	final_rotate(t_stack *a);
+int find_target_pos_in_a(t_stack *a, int value_from_b);
 
 #endif

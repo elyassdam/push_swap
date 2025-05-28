@@ -1,18 +1,38 @@
 /* ************************************************************************** */
-/* */
-/* :::      ::::::::   */
-/* rules.c                                            :+:      :+:    :+:   */
-/* +:+ +:+         +:+     */
-/* By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
-/* +#+#+#+#+#+   +#+           */
-/* Created: 2025/04/10 12:54:23 by yael-you          #+#    #+#             */
-/* Updated: 2025/04/10 16:31:00 by yael-you         ###   ########.fr       */
-/* */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rules.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/10 12:54:23 by yael-you          #+#    #+#             */
+/*   Updated: 2025/05/28 15:47:59 by yael-you         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_push_swap.h"
+#include <stdio.h>
 
-void    sa(t_stack *a)
+void print_stack(const char *name, t_stack *stack)
+{
+    t_list *current;
+
+    printf("%s: ", name);
+    if (!stack || !stack->top)
+    {
+        printf("[empty]\n");
+        return;
+    }
+    current = stack->top;
+    while (current)
+    {
+        printf("%d ", *(int *)current->content);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+void sa(t_stack *a)
 {
     t_list  *i;
     t_list  *j;
@@ -29,9 +49,11 @@ void    sa(t_stack *a)
     i->content = j->content;
     j->content = temp_content;
     ft_printf("sa\n");
+
+    print_stack("Stack a", a);
 }
 
-void    sb(t_stack *b)
+void sb(t_stack *b)
 {
     t_list  *i;
     t_list  *j;
@@ -48,9 +70,11 @@ void    sb(t_stack *b)
     i->content = j->content;
     j->content = temp_content;
     ft_printf("sb\n");
+
+    print_stack("Stack b", b);
 }
 
-void    ss(t_stack *a, t_stack *b)
+void ss(t_stack *a, t_stack *b)
 {
     if (!a || !b)
         return ;
@@ -61,9 +85,12 @@ void    ss(t_stack *a, t_stack *b)
     sa(a);
     sb(b);
     ft_printf("ss\n");
+
+    print_stack("Stack a", a);
+    print_stack("Stack b", b);
 }
 
-void    pa(t_stack *a, t_stack *b)
+void pa(t_stack *a, t_stack *b)
 {
     t_list  *i;
 
@@ -78,9 +105,12 @@ void    pa(t_stack *a, t_stack *b)
     a->size = ft_lstsize(a->top);
     b->size = ft_lstsize(b->top);
     ft_printf("pa\n");
+
+    print_stack("Stack a", a);
+    print_stack("Stack b", b);
 }
 
-void    pb(t_stack *a, t_stack *b)
+void pb(t_stack *a, t_stack *b)
 {
     t_list  *i;
 
@@ -95,4 +125,7 @@ void    pb(t_stack *a, t_stack *b)
     a->size = ft_lstsize(a->top);
     b->size = ft_lstsize(b->top);
     ft_printf("pb\n");
+
+    print_stack("Stack a", a);
+    print_stack("Stack b", b);
 }

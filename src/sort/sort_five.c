@@ -6,7 +6,7 @@
 /*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:30:38 by yael-you          #+#    #+#             */
-/*   Updated: 2025/05/12 17:17:40 by yael-you         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:17:07 by yael-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,53 @@
 int get_max(t_stack *a)
 {
     if (!a || !a->top)
-        return 0;
-    int max;
-    t_list *i;
-
-    i = a->top->next;
-    max = *(int *)i->content;
-    while (i != NULL)
     {
-        if (max < *(int *) i->content)
-            max = *(int *) i->content;
-        i = i->next;
+        return (__INT32_MAX__ * -1);
     }
-    return max;
+
+    int     max_val;
+    t_list  *current;
+
+    max_val = *(int *)a->top->content;
+
+    current = a->top;
+    while (current != NULL)
+    {
+        if (current->content)
+        {
+            if (max_val < *(int *)current->content)
+                max_val = *(int *)current->content;
+        }
+        current = current->next;
+    }
+    return (max_val);
 }
+
 int get_min(t_stack *a)
 {
     if (!a || !a->top)
-        return 0;
-    int min;
-    t_list *i;
-    i = a->top->next;
-    min = *(int *)i->content;
-    while (i != NULL)
     {
-        if (min > *(int *) i->content)
-            min = *(int *) i->content;
-        i = i->next;
+        return (__INT32_MAX__);
     }
-    return min;
+
+    int     min_val;
+    t_list  *current;
+
+    min_val = *(int *)a->top->content;
+
+    current = a->top;
+    while (current != NULL)
+    {
+        if (current->content)
+        {
+            if (min_val > *(int *)current->content)
+                min_val = *(int *)current->content;
+        }
+        current = current->next;
+    }
+    return (min_val);
 }
+
 int get_pos(t_stack *a, int value)
 {
 	t_list *current = a->top;
