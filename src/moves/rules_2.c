@@ -80,6 +80,7 @@ void rra (t_stack *a)
     else
         first->next = NULL; // Si solo hay dos elementos
     ft_printf("rra\n");
+    //print_stack("Stack a", a);
 }
 
 void rrb (t_stack *b)

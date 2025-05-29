@@ -1,6 +1,6 @@
  #include "../includes/ft_push_swap.h"
 
-/* void    sort(t_stack *a, t_stack *b)
+/*  void    sort(t_stack *a, t_stack *b)
 {
     if (a->size == 2)
     {
@@ -49,11 +49,11 @@
     }
 
     final_rotate(a);
-} */
-/*  void    sort(t_stack *a, t_stack *b)
+}  */
+ /* void    sort(t_stack *a, t_stack *b)
 {
-    // Casos base (ya los tienes, pero el size == 2 debería ir antes del sort_three)
-    if (a->size <= 1) // Ya está ordenado (o 0 o 1 elemento)
+
+    if (a->size <= 1) 
         return;
     if (a->size == 2)
     {
@@ -100,14 +100,14 @@
                 rb(b);
                 moves_to_max_b--;
             }
-            else // Rotar hacia abajo
+            else 
             {
                 rrb(b);
                 moves_to_max_b++;
             }
         }
         
-        pa(a, b); // Empujar el max_val_b de B a A
+        pa(a, b);
     }
 
   
@@ -151,14 +151,12 @@ void    sort(t_stack *a, t_stack *b)
     // Aquí se reemplaza tu bucle 'while (b->size > 0)' anterior
    while (b->size > 0)
     {
-        ft_printf("\n--- Iteración B->A. Pila A: "); ft_print_stack(a); // DEBUG
-        ft_printf("--- Iteración B->A. Pila B: "); ft_print_stack(b); // DEBUG
+ 
 
         int     cheapest_val_b = 0;
         int     min_total_moves = INT_MAX; // Usar INT_MAX de <limits.h>
         t_list  *current_b_node = b->top;
 
-        ft_printf("Analizando elementos en B para mover a A:\n"); // DEBUG
         while (current_b_node)
         {
             int val_b = *(int *)current_b_node->content;
@@ -176,8 +174,6 @@ void    sort(t_stack *a, t_stack *b)
             {
                 current_total_moves = abs(moves_a_to_target) + abs(moves_b_to_top);
             }
-            ft_printf("  - Valor B: %d | Moves B: %d | Target A: %d | Moves A: %d | Costo: %d\n",
-                      val_b, moves_b_to_top, target_val_in_a, moves_a_to_target, current_total_moves); // DEBUG
 
             if (current_total_moves < min_total_moves)
             {
@@ -186,14 +182,12 @@ void    sort(t_stack *a, t_stack *b)
             }
             current_b_node = current_b_node->next;
         }
-        ft_printf("Elemento más barato de B a mover a A: %d (Costo: %d)\n", cheapest_val_b, min_total_moves); // DEBUG
-
+       
         // Volver a calcular los movimientos finales para el elemento elegido
         // (Esto es necesario porque la pila A o B pudieron cambiar ligeramente en el bucle interno)
         int final_moves_a = get_moves_to_top(a, find_target_pos_in_a(a, cheapest_val_b));
         int final_moves_b = get_moves_to_top(b, cheapest_val_b);
 
-        ft_printf("Movimientos finales: A: %d, B: %d\n", final_moves_a, final_moves_b); // DEBUG
 
         // Realizar rotaciones dobles
         while (final_moves_a > 0 && final_moves_b > 0) { rr(a, b); final_moves_a--; final_moves_b--; }
@@ -205,13 +199,13 @@ void    sort(t_stack *a, t_stack *b)
         while (final_moves_b > 0) { rb(b); final_moves_b--; }
         while (final_moves_b < 0) { rrb(b); final_moves_b++; }
 
-        ft_printf("Pila A despues de rotaciones: "); ft_print_stack(a); // DEBUG
-        ft_printf("Pila B despues de rotaciones: "); ft_print_stack(b); // DEBUG
+        
         pa(a, b);
-        ft_printf("DESPUÉS DE PA. Pila A: "); ft_print_stack(a); // DEBUG
-        ft_printf("DESPUÉS DE PA. Pila B: "); ft_print_stack(b); // DEBUG
+      
     }
-    ft_printf("--- FIN FASE: B de vuelta a A ---\n"); // DEBUG
+    final_rotate(a);
     // Rotación final de A para colocar el menor elemento en la cima (ESTO NO CAMBIA)
-    //final_rotate(a);
+    
 }
+
+

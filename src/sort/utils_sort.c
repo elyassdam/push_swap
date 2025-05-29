@@ -6,7 +6,7 @@
 /*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 07:59:54 by yael-you          #+#    #+#             */
-/*   Updated: 2025/05/28 16:39:34 by yael-you         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:58:32 by yael-you         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int get_moves_to_top(t_stack *stack, int value)
     int     moves_down;
 
     if (!stack || !stack->top)
-        return (__INT_MAX__); // Valor alto si stack vacío
+        return (0); // Valor alto si stack vacío
 
     i = stack->top;
     index = 0;
@@ -194,8 +194,6 @@ int get_moves_to_top(t_stack *stack, int value)
     }
     return (__INT_MAX__); // Valor alto si no encontrado
 }
-#include <limits.h>
-
 #include <limits.h>
 
 int find_target_pos_in_a(t_stack *a, int value_from_b)
@@ -275,8 +273,8 @@ int	do_move_top(t_stack *a, t_stack *b)
 	while (moves_b > 0)
 	{
 		rb(b);
-	ft_printf("Después de rb: ");
-	ft_print_stack(b);
+	//ft_printf("Después de rb: ");
+	//ft_print_stack(b);
 
 		moves_b--;
 	}
@@ -324,24 +322,24 @@ int is_sorted(t_stack *stack)
 }
 
 
-void ft_print_stack(t_stack *stack)
+/* void ft_print_stack(t_stack *stack)
 {
     t_list *current;
 
     if (!stack || !stack->top)
     {
-        ft_printf("[empty]\n");
+        //ft_printf("[empty]\n");
         return;
     }
 
     current = stack->top;
     while (current)
     {
-        ft_printf("%d ", *(int *)current->content);
+        //ft_printf("%d ", *(int *)current->content);
         current = current->next;
     }
-    ft_printf("\n");
-}
+   // ft_printf("\n");
+} */
 #include <stdio.h>
 
 /* void print_stack(const char *name, t_stack *stack)
