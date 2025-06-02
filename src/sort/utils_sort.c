@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yael-you <yael-you@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yael-you <yael-you@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 07:59:54 by yael-you          #+#    #+#             */
-/*   Updated: 2025/05/29 13:58:32 by yael-you         ###   ########.fr       */
+/*   Updated: 2025/06/02 12:04:50 by yael-you         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/ft_push_swap.h"
 
@@ -83,48 +83,6 @@ int	cheapest(t_stack *a, t_stack *b)
 	}
 	return (cheapest_value);
 }
-/* int	find_couple(t_stack *b, int value_a)
-{
-	t_list	*i;
-	int		max_b;
-	int		min_b;
-	int		current_b_val;
-	int		best_val;
-	int		best_diff;
-
-	if (!b || !b->top)
-		return (0);
-
-	max_b = get_max(b);
-	min_b = get_min(b);
-
-	ft_printf("DEBUG: find_couple para A_val=%d. Estado actual de B: ", value_a);
-	print_stack(b); // Opcional, imprime stack b
-
-	// Si es mayor que todo B, colócalo después del max
-	if (value_a > max_b || value_a < min_b)
-		return (max_b);
-
-	best_val = max_b;
-	best_diff = __INT_MAX__;
-
-	i = b->top;
-	while (i)
-	{
-		current_b_val = *(int *)i->content;
-		int diff = current_b_val - value_a;
-
-		if (diff > 0 && diff < best_diff)
-		{
-			best_diff = diff;
-			best_val = current_b_val;
-		}
-		i = i->next;
-	}
-	ft_printf("DEBUG: Pareja para %d en B es: %d\n", value_a, best_val);
-	return (best_val);
-}
- */
 int	find_couple(t_stack *b, int value_a)
 {
 	t_list	*i;
@@ -194,8 +152,6 @@ int get_moves_to_top(t_stack *stack, int value)
     }
     return (__INT_MAX__); // Valor alto si no encontrado
 }
-#include <limits.h>
-
 int find_target_pos_in_a(t_stack *a, int value_from_b)
 {
     t_list *current_a_node;
@@ -322,41 +278,123 @@ int is_sorted(t_stack *stack)
 }
 
 
-/* void ft_print_stack(t_stack *stack)
+int cost_b_to_a(t_stack *a, t_stack *b, int value_b)
 {
-    t_list *current;
+    int moves_a;
+    int moves_b;
+    int target_a;
+    int cost;
 
-    if (!stack || !stack->top)
+    if (!a || !b || !b->top)
+        return (__INT_MAX__);
+
+    // Encontrar dónde debe ir value_b en A
+    target_a = find_target_pos_in_a(a, value_b);
+    
+    // Movimientos para traer target_a al top de A
+    moves_a = get_moves_to_top(a, target_a);
+    
+    // Movimientos para traer value_b al top de B
+    moves_b = get_moves_to_top(b, value_b);
+
+    // EXACTAMENTE la misma lógica que tu función cost()
+    if ((moves_a >= 0 && moves_b >= 0) || (moves_a < 0 && moves_b < 0))
     {
-        //ft_printf("[empty]\n");
-        return;
+        if (moves_a > moves_b)
+            cost = moves_a;
+        else
+            cost = moves_b;
     }
-
-    current = stack->top;
-    while (current)
+    else
     {
-        //ft_printf("%d ", *(int *)current->content);
-        current = current->next;
+        if (moves_a < 0)
+            moves_a = -moves_a;
+        if (moves_b < 0)
+            moves_b = -moves_b;
+        cost = moves_a + moves_b;
     }
-   // ft_printf("\n");
-} */
-#include <stdio.h>
+    return cost;
+}
 
-/* void print_stack(const char *name, t_stack *stack)
+// Función para encontrar el más barato de B (igual que tu cheapest() pero para B)
+int cheapest_b_to_a(t_stack *a, t_stack *b)
 {
-    t_list *current;
+    t_list  *i;
+    int     cheapest_cost;
+    int     cheapest_value;
+    int     value;
+    int     current_cost;
 
-    printf("%s: ", name);
-    if (!stack || !stack->top)
+    if (!b || !b->top)
+        return (0);
+    
+    i = b->top;
+    cheapest_value = *(int *)i->content;
+    cheapest_cost = cost_b_to_a(a, b, cheapest_value);
+    
+    while (i != NULL)
     {
-        printf("[empty]\n");
-        return;
+        value = *(int *)i->content;
+        current_cost = cost_b_to_a(a, b, value);
+        if (current_cost < cheapest_cost)
+        {
+            cheapest_cost = current_cost;
+            cheapest_value = value;
+        }
+        i = i->next;
     }
-    current = stack->top;
-    while (current)
+    return (cheapest_value);
+}
+
+// Función para hacer el movimiento B->A (igual que tu do_move_top() pero para B->A)
+int do_move_b_to_a(t_stack *a, t_stack *b)
+{
+    int cheap_b;
+    int moves_a;
+    int moves_b;
+    int target_a;
+
+    cheap_b = cheapest_b_to_a(a, b);
+    target_a = find_target_pos_in_a(a, cheap_b);
+    moves_a = get_moves_to_top(a, target_a);
+    moves_b = get_moves_to_top(b, cheap_b);
+
+    // Rotaciones dobles (EXACTAMENTE igual que en do_move_top)
+    while (moves_a > 0 && moves_b > 0)
     {
-        printf("%d ", *(int *)current->content);
-        current = current->next;
+        rr(a, b);
+        moves_a--;
+        moves_b--;
     }
-    printf("\n");
-} */
+    while (moves_a < 0 && moves_b < 0)
+    {
+        rrr(a, b);
+        moves_a++;
+        moves_b++;
+    }
+    
+    // Rotaciones individuales (EXACTAMENTE igual que en do_move_top)
+    while (moves_a > 0)
+    {
+        ra(a);
+        moves_a--;
+    }
+    while (moves_a < 0)
+    {
+        rra(a);
+        moves_a++;
+    }
+    while (moves_b > 0)
+    {
+        rb(b);
+        moves_b--;
+    }
+    while (moves_b < 0)
+    {
+        rrb(b);
+        moves_b++;
+    }
+    
+    pa(a, b);
+    return (1);
+}

@@ -20,6 +20,11 @@ typedef struct s_stack
 	int				size;
 	char			stack_id;
 }					t_stack;
+typedef struct s_couple {
+    int moves_a;
+    int moves_b;
+    int total_cost;
+} t_couple;
 
 // Function prototypes
 void	sa(t_stack *a);
@@ -56,5 +61,8 @@ int		is_sorted(t_stack *a);
 void print_stack(const char *name, t_stack *stack);
 void	final_rotate(t_stack *a);
 int find_target_pos_in_a(t_stack *a, int value_from_b);
-
+//aux b to a
+int cost_b_to_a(t_stack *a, t_stack *b, int value_b);
+int cheapest_b_to_a(t_stack *a, t_stack *b);
+int do_move_b_to_a(t_stack *a, t_stack *b);
 #endif
